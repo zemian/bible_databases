@@ -4,33 +4,27 @@ function convertToNumber($book = NULL, $database = NULL) {
 		
 	if (!$database) { die('You forgot to specify the database in your bible_to_sql call.'); }
 		
-	$query = "SELECT B from bible.key_abbreviations_english WHERE A=?";
+	$query = "SELECT B from key_abbreviations_english WHERE A=?";
 	
-	$stmt = $database->stmt_init();
-	$stmt->prepare($query);
-	$stmt->bind_param("s", $book);
+	//$stmt = $database->stmt_init();
+	$stmt = $database->prepare($query);
+	$stmt->bindValue(1, $book);
 	$stmt->execute();
-	$result = $stmt->get_result();
-	if ($row = $result->fetch_array(MYSQLI_NUM)) {
-		return $row[0];
-	} 
-	$stmt->close();
+	$result = $stmt->fetch();
+	return $result[0];
 }
 
 function convertToBook($number = NULL, $database = NULL) {
 	if (!$database) { die('You forgot to specify the database in your bible_to_sql call.'); }
 	
-	$query = "SELECT n from bible.key_english WHERE b=?";
+	$query = "SELECT n from key_english WHERE b=?";
 	
-	$stmt = $database->stmt_init();
-	$stmt->prepare($query);
-	$stmt->bind_param("s", $number);
+	//$stmt = $database->stmt_init();
+	$stmt = $database->prepare($query);
+	$stmt->bindValue(1, $number);
 	$stmt->execute();
-	$result = $stmt->get_result();
-	if ($row = $result->fetch_array(MYSQLI_NUM)) {
-		return $row[0];
-	}
-	 $stmt->close();
+	$result = $stmt->fetch();
+	return $result[0];
 	 
 }
 
