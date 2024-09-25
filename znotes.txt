@@ -3,18 +3,40 @@ select t from t_kjv where id >= 1001001 and id < 1002001; -- Gen 1:1 to Gen 2:1
 select t from t_kjv where id = 66001001; -- Rev 1:1
 
 -- Ps 23
-select t_kjv.* from t_kjv
-    left join key_english on t_kjv.b = key_english.b
-    where key_english.n = 'Psalms' and t_kjv.c = 23
-    order by t_kjv.v;
+select t.* from t_kjv t
+    left join key_english b on t.b = b.b
+    where b.n = 'Psalms' and t.c = 23
+    order by t.v;
+-- Ps 23 - compare to web
+select t.* from t_web t
+    left join key_english k on t.b = k.b
+    where k.n = 'Psalms' and t.c = 23
+    order by t.v;
 
 -- Jn 3:16
-select t_kjv.* from t_kjv, key_english
-    where t_kjv.b = key_english.b and key_english.n = 'John' and t_kjv.c = 3 and t_kjv.v = 16
-    order by t_kjv.v;
+select t.* from t_kjv t, key_english b
+    where t.b = b.b and b.n = 'John' and t.c = 3 and t.v = 16
+    order by t.v;
+select t.* from t_web t, key_english b
+    where t.b = b.b and b.n = 'John' and t.c = 3 and t.v = 16
+    order by t.v;
 
 -- Mt 6:9-13
-select t_kjv.* from t_kjv, key_english
-    where t_kjv.b = key_english.b and key_english.n = 'Matthew' and t_kjv.c = 6
-      and t_kjv.v between 9 and 13
-    order by t_kjv.v;
+select t.* from t_kjv t, key_english b
+    where t.b = b.b and b.n = 'Matthew' and t.c = 6
+      and t.v between 9 and 13
+    order by t.v;
+select t.* from t_web t, key_english b
+    where t.b = b.b and b.n = 'Matthew' and t.c = 6
+      and t.v between 9 and 13
+    order by t.v;
+
+/*
+Mt 6:9-13 KJV
+
+"After this manner therefore pray ye: Our Father which art in heaven, Hallowed be thy name."
+"Thy kingdom come, Thy will be done in earth, as it is in heaven."
+Give us this day our daily bread.
+"And forgive us our debts, as we forgive our debtors."
+"And lead us not into temptation, but deliver us from evil: For thine is the kingdom, and the power, and the glory, for ever. Amen."
+*/
