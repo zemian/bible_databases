@@ -1,0 +1,21 @@
+select * from book_info;
+select t from t_kjv where id >= 1001001 and id < 1002001; -- Gen 1:1 to Gen 2:1
+select t from t_kjv where id = 66001001; -- Rev 1:1
+
+-- Ps 23
+select t_kjv.* from t_kjv
+    left join book_info on t_kjv.b = book_info.`order`
+    where book_info.title_short = 'Psalms' and t_kjv.c = 23
+    order by t_kjv.v;
+
+-- Jn 3:16
+select t_kjv.* from t_kjv, book_info
+    where t_kjv.b = book_info.`order` and book_info.title_short = 'John' and t_kjv.c = 3 and t_kjv.v = 16
+    order by t_kjv.v;
+
+-- Mt 6:9-13
+select t_kjv.* from t_kjv, book_info
+    where t_kjv.b = book_info.`order` and book_info.title_short = 'Matthew' and t_kjv.c = 6
+      and t_kjv.v between 9 and 13
+    order by t_kjv.v;
+    
